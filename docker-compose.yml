@@ -1,0 +1,104 @@
+version: '3'
+services:
+  naval-review-server:
+    image: ghcr.io/militarygameorganization/naval-review-server
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    stop_grace_period: 100s
+    ports:
+      - "31304:25565" # minecraft
+    volumes:
+      - type: volume
+        source: mods
+        target: /server/mods
+      - type: volume
+        source: saves
+        target: /save
+        volume:
+          nocopy: true
+    cap_add:
+      - SYS_PTRACE
+  naval-review-auto-save:
+    image: ghcr.io/anatawa12/game-save-backuper
+    restart: unless-stopped
+    stop_grace_period: 30s
+    volumes:
+      - type: volume
+        source: backups
+        target: /backups
+      - type: volume
+        source: saves
+        target: /save
+        read_only: true
+        volume:
+          nocopy: true
+    environment:
+      GAME_CONFIG_YAML: |
+        preset: minecraft
+        rcon_address: naval-review-server:25575
+        rcon_password: rcon
+        backup_dir: /backups
+        save_dir: /save/world
+        backups:
+          - name: hourly
+            interval: 10 minutely
+            max_backups: 180 # 30h * 6/h
+
+          - name: daily
+            interval: daily
+            max_backups: 40
+
+          - name: monthly
+            interval: monthly
+            max_backups: 24
+
+          - name: yearly
+            interval: yearly
+            max_backups: 999
+
+volumes:
+  saves:
+    driver: local
+  backups:
+    driver: local
+  # mods volume for mods cache
+  mods:
+    driver: local
+
+#  discord-rcon:
+#    image: ghcr.io/anatawa12/discord-rcon
+#    restart: unless-stopped
+#    environment:
+#      # the discord bot token
+#      DISCORD_TOKEN: "${DISCORD_TOKEN}"
+#
+#      # the discord command prefix.
+#      # if the value is "!", "!say hello" executes "say hello" in console
+#      # If the value is empty, all messages posted to the channel by a person who has
+#      # the role will be executed.
+#      DISCORD_PREFIX: ""
+#
+#      # the control command prefix.
+#      DISCORD_COMMAND: "!control"
+#
+#      # The id of role the users this bot can be used.
+#      # if not specified, all users can use this bot. it's dangerous
+#      DISCORD_ROLE: "${DISCORD_ROLE}"
+#
+#      # The id of channel this bot will listen.
+#      # if not specified, all channels on guild/server the bot connected will be watched.
+#      DISCORD_CHANNEL: "${DISCORD_CHANNEL}"
+#
+#      # The kind of your game server.
+#      # This enables the some quirks for game servers.
+#      # currently supports Minecraft and Factorio.
+#      # If your game is not one of games above, you don't need to specify server_kind
+#      SERVER_KIND: "minecraft"
+#
+#      # The section about rcon connection
+#      # the address of rcon server.
+#      RCON_ADDRESS: "naval-review-server-server:25575"
+#      # the password of rcon server.
+#      RCON_PASSWORD: "${RCON_PASSWORD}"
+#

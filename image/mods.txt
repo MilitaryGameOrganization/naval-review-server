@@ -1,0 +1,27 @@
+version 0.0.13
+
+mod mcheli
+    from zip
+        from drive 0B3bqAThdt2qieHN3MDBscGJmRW8
+            of "mcheli"
+            into "mcheli"
+    version 1.0.4
+
+mod airportmod from curse airportmod
+    version 3861219 (2.3.3)
+
+# server mod
+
+# client-only optional mods
+
+optional client mod optifine from optifine
+    version 1.7.10_HD_U_E7
+
+optional client mod intelli-input from url "http://mcc.mcsv.jp/Files/IntelliInput/IntelliInput-$version-for1.7.10.jar"
+    version 2.6
+
+optional client mod cocoa-input from curse 259700
+    version 2379607 (3.0.5)
+
+optional client mod journey-map from curse 2367915
+    version 2916002 (5.1.4p2)
