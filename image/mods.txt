@@ -8,7 +8,7 @@ mod mcheli
     version 1.0.4
 
 mod airportmod from curse airportmod
-    version 3861219 (2.3.3)
+    version 3804032 (2.2.1)
 
 # server mod
 
