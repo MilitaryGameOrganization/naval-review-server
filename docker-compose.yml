@@ -98,7 +98,7 @@ volumes:
 #
 #      # The section about rcon connection
 #      # the address of rcon server.
-#      RCON_ADDRESS: "naval-review-server-server:25575"
+#      RCON_ADDRESS: "naval-review-server:25575"
 #      # the password of rcon server.
 #      RCON_PASSWORD: "${RCON_PASSWORD}"
 #

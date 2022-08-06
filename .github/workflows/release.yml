@@ -47,7 +47,7 @@ jobs:
           curl -L "https://github.com/anatawa12/mod-downloader/releases/download/v${DOWNLOADER_VERSION}/mod-downloader-${DOWNLOADER_VERSION}.jar" \
               > mod-downloader-gen.jar
           java -jar mod-downloader-gen.jar --new-embed \
-              --url "https://github.com/MilitaryGameOrganization/naval-review-server-server/releases/latest/download/mods.txt" \
+              --url "https://github.com/MilitaryGameOrganization/naval-review-server/releases/latest/download/mods.txt" \
               --name "JAM Server" \
               --dest ./mod-downloader.jar
 
@@ -67,8 +67,8 @@ jobs:
             linux/amd64
             linux/arm64
           tags: |-
-            ghcr.io/militarygameorganization/naval-review-server-server:${{ env.VERSION }}
-            ghcr.io/militarygameorganization/naval-review-server-server:latest
+            ghcr.io/militarygameorganization/naval-review-server:${{ env.VERSION }}
+            ghcr.io/militarygameorganization/naval-review-server:latest
 
       - name: tag & push release
         env:
