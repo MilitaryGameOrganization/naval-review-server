@@ -45,9 +45,6 @@ FROM bash as config-gen
 COPY ops.json.sh /ops.json.sh
 RUN /ops.json.sh
 
-COPY whitelist.json.sh /whitelist.json.sh
-RUN /whitelist.json.sh
-
 FROM alpine as bundler
 
 WORKDIR /server
@@ -84,7 +81,6 @@ COPY                           mods.txt                    /server/mods.txt
 # override configs
 
 COPY --from=config-gen /ops.json          /server/ops.json
-COPY --from=config-gen /whitelist.json    /server/whitelist.json
 
 FROM eclipse-temurin:8-jdk
 
